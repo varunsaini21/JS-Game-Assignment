@@ -1,0 +1,109 @@
+*{
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+}
+
+.main{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h1{
+	font-size: 64px;
+}
+
+.game{
+	display: flex;
+	align-items: center;
+}
+
+.game .left{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 40%;
+	height: 300px;
+	background-color: rgb(156, 213, 170);
+}
+
+.game .right{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 40%;
+	height: 300px;
+	background-color: rgb(156, 213, 170);
+}
+
+.game .boat{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	height: 300px;
+	width: 20%;
+	background-color: royalblue;
+	transition: 1s;
+}
+.priestL, .CanibalL, .priestR, .CanibalR{
+	display: flex;
+	flex-direction: row;
+}
+.priestL div, .CanibalL div, .priestR div, .CanibalR div{
+	margin: 10px;
+	border-radius: 25px;
+	padding: 10px 40px;
+	background-color: white;
+	transition: 0.3s;
+}
+.priestL div, .priestR div{
+	border: 2px solid green;
+	background-color: green;
+}
+
+.CanibalL div, .CanibalR div{
+	border: 2px solid red;
+	background-color: red;
+}
+
+span{
+	padding: 10px 20px;
+	border-radius: 15px;
+	background-color: white;
+}
+
+.below{
+	padding: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgb(247, 194, 184);
+}
+
+button{
+	margin: 0px 50px;
+	padding: 15px 40px;
+	border-radius: 8px;
+}
+
+.CanibalR div, .priestR div{
+	display: none;
+}
+
+#result{
+	padding: 0;
+	margin: 0;
+	font-size: 72px;
+}
+
+.game div div div:hover{
+	background-color: white;
+}

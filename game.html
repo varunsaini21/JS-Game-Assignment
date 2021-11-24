@@ -1,0 +1,219 @@
+<html>
+<head>
+	<title>
+		Missionaries and Cannibals Game
+	</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div class="main">
+		<h1>Missionaries and Cannibals</h1>
+	</div>
+	<div class="game">
+		<div class="left">
+			<div class="priestL">
+				<div id='L1' onclick ="changeColor(id)" >
+					Priest
+				</div>
+				<div id='L2' onclick ="changeColor(id)" >
+					Priest
+				</div>
+				<div id='L3' onclick ="changeColor(id)" >
+					Priest
+				</div>
+			</div>
+			<div class="CanibalL">
+				<div id='L4' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+				<div id='L5' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+				<div id='L6' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+			</div>
+		</div>
+		<div id='boat' class="boat">
+			<span>BOAT</span>
+		</div>
+		<div class="right">
+			<div class="priestR">
+				<div id='R1' onclick ="changeColor(id)" >
+					Priest
+				</div>
+				<div id='R2' onclick ="changeColor(id)" >
+					Priest
+				</div>
+				<div id='R3' onclick ="changeColor(id)" >
+					Priest
+				</div>
+			</div>
+			<div class="CanibalR">
+				<div id='R4' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+				<div id='R5' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+				<div id='R6' onclick ="changeColor(id)" >
+					Canibal
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="below">
+		<button id='btn' onclick="myfunction()">
+			Row Boat
+		</button>
+		<button onclick="reset()">
+			Reset
+		</button>
+	</div>
+	<div>
+		<div id="result"></div>
+	</div>
+
+<script>
+	
+	let arr = [0, 0, 0, 0, 0, 0];
+	let pL = 3, cL = 3, pR = 0, cR = 0;
+	let boat = 0;
+	let num = 'L';
+	let priest = 0, canibal = 0;
+	
+	function reset(){
+		document.getElementById('result').innerHTML = '';
+		pL = 3; cL = 3; pR = 0; cR = 0; boat = 0; num = 'L';
+		priest = 0; canibal = 0;
+		document.getElementById('boat').style.alignItems = 'flex-start';
+		for(let i = 0; i<=2; i++){
+			document.getElementById('L'+(1+i)).style.backgroundColor="green";
+			document.getElementById('R'+(1+i)).style.backgroundColor="green";
+			document.getElementById('L'+(1+i)).style.display="block";
+			document.getElementById('R'+(1+i)).style.display="none";
+		}
+		for(let i = 3; i<=5; i++){
+			document.getElementById('L'+(1+i)).style.backgroundColor="red";
+			document.getElementById('R'+(1+i)).style.backgroundColor="red";
+			document.getElementById('L'+(1+i)).style.display="block";
+			document.getElementById('R'+(1+i)).style.display="none";
+		}
+		document.getElementById('btn').style.display = 'block';
+
+	}
+
+	function changeColor(id){
+		let index = Number(id[1])-1, side = id[0];
+		if(num === side){
+			if(arr[index] === 0 && boat < 2){
+				arr[index] = 1;
+				if(index < 3){
+					priest += 1;
+				}
+				else{
+					canibal += 1;
+				}
+				boat += 1;
+				document.getElementById(side+(1+index)).style.backgroundColor="yellow";
+			}
+			else if(arr[index] === 1){
+				arr[index] = 0;
+				if(index < 3){
+					priest -= 1;
+					document.getElementById(side+(1+index)).style.backgroundColor="green";
+				}
+				else{
+					canibal -= 1;
+					document.getElementById(side+(1+index)).style.backgroundColor="red";
+				}
+				boat -= 1;
+			}
+		}
+		console.log('arr = ' + arr);
+		console.log('boat = '  + boat + 'side = ' + side);
+		console.log('num = ' + num);
+		console.log(`priest = ${priest}, canibal = ${canibal}`);
+		console.log(' ');
+	}
+
+	function myfunction(){
+		if(boat > 0){
+			if(num === 'L'){
+				num = 'R';
+				document.getElementById('boat').style.alignItems = 'flex-end';
+				for(x in arr){
+					if(arr[x] === 1){
+						index = Number(x);
+						console.log('L'+(1+index));
+						document.getElementById('L'+(1+index)).style.display="none";
+						if(index < 3){
+							document.getElementById('L'+(1+index)).style.backgroundColor="green";
+						}
+						else{
+							document.getElementById('L'+(1+index)).style.backgroundColor="red";
+						}
+						document.getElementById('R'+(1+index)).style.display="block";
+					}
+				}
+				arr = [0, 0, 0, 0, 0, 0];
+				pL -=  priest;
+				cL -= canibal;
+				pR += priest;
+				cR += canibal;
+				if((pL < cL && (pL > 0))|| ((pR < cR) && (pR > 0))){
+					document.getElementById('result').innerHTML = 'Defeat';
+					alert('Defeat');
+					document.getElementById('btn').style.display = 'none';
+					console.log(`pL = ${pL}, cL = ${cL}`);
+					console.log(`pR = ${pR}, cR = ${cR}`);
+				}
+				else if(pR === 3 && cR === 3){
+					document.getElementById('result').innerHTML = 'Success';
+					alert('Success');
+					document.getElementById('btn').style.display = 'none';
+				}
+				priest = 0;
+				canibal = 0;
+				boat = 0;
+			}
+			else if(num === 'R'){
+				num = 'L';
+				document.getElementById('boat').style.alignItems = 'flex-start';
+				for(x in arr){
+					if(arr[x] === 1){
+						index = Number(x);
+						console.log('R'+(1+index));
+						document.getElementById('R'+(1+index)).style.display="none";
+						if(index < 3){
+							document.getElementById('R'+(1+index)).style.backgroundColor="green";
+						}
+						else{
+							document.getElementById('R'+(1+index)).style.backgroundColor="red";
+						}
+						document.getElementById('L'+(1+index)).style.display="block";
+					}
+				}
+				arr = [0, 0, 0, 0, 0, 0];
+				pL +=  priest;
+				cL += canibal;
+				pR -= priest;
+				cR -= canibal;
+				if((pL < cL && (pL > 0))|| ((pR < cR) && (pR > 0))){
+					document.getElementById('result').innerHTML = 'Defeat';
+					alert('Defeat');
+					document.getElementById('btn').style.display = 'none';
+					console.log(`pL = ${pL}, cL = ${cL}`);
+					console.log(`pR = ${pR}, cR = ${cR}`);
+				}
+				priest = 0;
+				canibal = 0;
+				boat = 0;
+			}
+		}
+	}
+
+</script>
+</body>
+</html>
